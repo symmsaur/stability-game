@@ -7,15 +7,15 @@ ODIR = ../target
 
 LIBS = $(shell sdl2-config --libs) -lSDL2_image
 
-_DEPS = engine.h main.h
+_DEPS = main.h game.h engine.h 
 DEPS = $(patsubst %, $(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o engine.o
+_OBJ = main.o game.o engine.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-main: $(OBJ)
+$(ODIR)/main: $(OBJ)
 	gcc -o $@ $^ $(CFLAGS) $(LIBS)
 
