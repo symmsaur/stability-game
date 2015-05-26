@@ -16,3 +16,4 @@
 #define DARK_STONE 40
 #define BRIGHT_WALL 48
 
+#define SKY 58

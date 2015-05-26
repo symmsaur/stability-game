@@ -49,7 +49,7 @@ void init_engine() {
 }
 
 int load_assets() {
-  tiles = IMG_LoadTexture(renderer, "../assets/tiles.png");
+  tiles = IMG_LoadTexture(renderer, "../assets/tiles_std.png");
   if (tiles == NULL) return 1;
   else return 0;
 }
@@ -72,6 +72,11 @@ int render_frame() {
 
 void set_bg_tile(int x, int y, int tile_number) {
   bg_tiles[y * BG_TILES_X + x] = tile_number;
+}
+
+int get_bg_tile(int x, int y)
+{
+  return bg_tiles[y * BG_TILES_X + x];
 }
 
 int create_sprite(int tile_number, int n_frames)

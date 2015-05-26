@@ -1,5 +1,7 @@
 // game logic headers
 
 void init_game();
-void move_player(int dx);
+void player_move(int dir);
+void player_jump();
+void tick();
 

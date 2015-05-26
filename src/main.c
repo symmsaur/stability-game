@@ -21,26 +21,22 @@ int main()
   key_state = SDL_GetKeyboardState(NULL);
   
   printf("Ready\n");
-  // TODO: Extract input loop
   while(1) {
-    render_frame();
     SDL_Event e;
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
     }
-    if (key_state[SDL_SCANCODE_SPACE]) {
-      set_bg_tile(
-          rand() % BG_TILES_X,
-          rand() % BG_TILES_Y,
-          rand() % (TILES_X * TILES_Y)
-          );
-    }
     if (key_state[SDL_SCANCODE_LEFT]) {
-      move_player(-1);
+      player_move(-1);
     }
     if (key_state[SDL_SCANCODE_RIGHT]) {
-      move_player(1);
+      player_move(1);
     }
+    if (key_state[SDL_SCANCODE_SPACE]) {
+      player_jump();
+    }
+    tick();
+    render_frame();
   }
   printf("Shutting down...\n");
   shutdown_engine();
