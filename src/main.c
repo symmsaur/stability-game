@@ -4,8 +4,7 @@ const Uint8 *key_state;
 
 void print_stats();
 
-int main()
-{
+int main() {
   int res;
   printf("Starting...\n");
   init_engine();
@@ -26,6 +25,7 @@ int main()
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
     }
+	if (key_state[SDL_SCANCODE_ESCAPE]) break;
     if (key_state[SDL_SCANCODE_LEFT]) {
       player_move(-1);
     }
@@ -44,6 +44,12 @@ int main()
   print_stats();
 
   SDL_Quit();
+  return 0;
+}
+
+// Windows support
+int wmain() {
+	return main();
 }
 
 void print_stats(){
