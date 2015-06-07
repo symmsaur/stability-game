@@ -25,7 +25,7 @@ int main() {
     if (SDL_PollEvent(&e)) {
       if (e.type == SDL_QUIT) break;
     }
-	if (key_state[SDL_SCANCODE_ESCAPE]) break;
+    if (key_state[SDL_SCANCODE_ESCAPE]) break;
     if (key_state[SDL_SCANCODE_LEFT]) {
       player_move(-1);
     }
@@ -35,6 +35,7 @@ int main() {
     if (key_state[SDL_SCANCODE_SPACE]) {
       player_jump();
     }
+
     tick();
     render_frame();
   }

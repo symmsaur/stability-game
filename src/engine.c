@@ -49,7 +49,7 @@ void init_engine() {
 }
 
 int load_assets() {
-  tiles = IMG_LoadTexture(renderer, "../assets/tiles_std.png");
+  tiles = IMG_LoadTexture(renderer, "../assets/tiles.png");
   if (tiles == NULL) return 1;
   else return 0;
 }

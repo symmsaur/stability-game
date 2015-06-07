@@ -1,7 +1,10 @@
 #include "game.h"
 #include "engine.h"
+#include "level.h"
 
 #define ON_GROUND 1
+
+void player_tick();
 
 struct player_state {
   int sprite;
@@ -16,19 +19,7 @@ struct player_state {
 static struct player_state player;
 
 void init_game(){
-  for(int x = 0; x < BG_TILES_X; x++){
-    for (int y = 0; y < BG_TILES_Y; y++){
-      if (y == 6 && x > 5 && x < 15) {
-        set_bg_tile(x, y, DARK_STONE);
-      } 
-      else if (y < 10) {
-        set_bg_tile(x, y, SKY);
-      }
-      else {
-        set_bg_tile(x, y, DARK_STONE);
-      }
-    }
-  }
+  load_level("../assets/level1.lvl");
   player.sprite = create_sprite(CHR_RUN_LEFT, CHR_RUN_LEFT_NUM);
   player.x = SCREEN_WIDTH / 2;
   player.y = SCREEN_HEIGHT / 2;
@@ -79,6 +70,10 @@ int player_level_collision() {
 }
 
 void tick(){
+  player_tick();
+}
+
+void player_tick(){
   int collision;
   //struct player_state old_player = player;
   //struct player_state new_player = player;
