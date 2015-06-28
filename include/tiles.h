@@ -12,6 +12,9 @@
 #define FIRE_RUN_LEFT 12
 #define FIRE_RUN_LEFT_NUM 3
 
+#define MIN_SOLID_TILE 8 * 4
+#define MAX_SOLID_TILE 8 * 7 - 1
+
 #define LIGHT_STONE 32
 #define DARK_STONE 40
 #define BRIGHT_WALL 48

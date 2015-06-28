@@ -5,6 +5,7 @@
 #define ON_GROUND 1
 
 void player_tick();
+int check_solid(int x, int y);
 
 struct player_state {
   int sprite;
@@ -61,12 +62,17 @@ int player_level_collision() {
 
   //printf("(%d, %d)", tile_x, tile_y);
   //printf(":%d ", get_bg_tile(tile_x, tile_y));
-  if (get_bg_tile(tile_x, tile_y) == DARK_STONE) return 1;
-  if (get_bg_tile(tile_x, tile_y + 1 ) == DARK_STONE) return 2;
-  if (get_bg_tile(tile_x + 1, tile_y) == DARK_STONE) return 1;
-  if (get_bg_tile(tile_x + 1, tile_y + 1) == DARK_STONE) return 2;
+  if (check_solid(tile_x, tile_y)) return 1;
+  if (check_solid(tile_x, tile_y + 1 )) return 2;
+  if (check_solid(tile_x + 1, tile_y)) return 1;
+  if (check_solid(tile_x + 1, tile_y + 1)) return 2;
 
   return 0;
+}
+
+int check_solid(int x, int y) {
+  return get_bg_tile(x, y) <= MAX_SOLID_TILE &&
+    get_bg_tile(x, y) >= MIN_SOLID_TILE;
 }
 
 void tick(){

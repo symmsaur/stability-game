@@ -160,6 +160,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 bower_components/
+*.pyc
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -188,3 +189,10 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+
+#vim files
+*.swp
+
+#app specific
+target/
+
