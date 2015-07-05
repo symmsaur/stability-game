@@ -42,6 +42,9 @@ int main(int argc, const char *argv[]) {
     if (key_state[SDL_SCANCODE_SPACE]) {
       player_jump();
     }
+    else {
+      player_end_jump();
+    }
 
     tick();
     render_frame();
