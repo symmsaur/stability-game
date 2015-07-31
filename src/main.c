@@ -1,5 +1,7 @@
 #include "main.h"
 
+#define EDITOR
+
 const Uint8 *key_state;
 
 void print_stats();
@@ -16,13 +18,13 @@ int main(int argc, const char *argv[]) {
     SDL_Quit();
   }
 
-  if (argc > 1 && command_args(argc, argv) & CMD_ARG_EDITOR) {
-    init_editor();
-    editor_loop();
-  }
-  else {
-    init_game();
-  }
+#ifdef EDITOR
+  init_editor();
+  editor_loop();
+#else
+  init_game();
+#endif
+
 
   key_state = SDL_GetKeyboardState(NULL);
   
