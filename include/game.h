@@ -1,3 +1,5 @@
+#pragma once
+
 // game logic headers
 
 void init_game();

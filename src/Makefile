@@ -7,10 +7,10 @@ ODIR = ../target
 
 LIBS = $(shell sdl2-config --libs) -lSDL2_image
 
-_DEPS = main.h game.h engine.h level.h editor.h actor.h
+_DEPS = main.h game.h engine.h level.h editor.h collision.h
 DEPS = $(patsubst %, $(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o game.o engine.o level.o editor.o actor.o
+_OBJ = main.o game.o engine.o level.o editor.o collision.o
 OBJ = $(patsubst %, $(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: %.c $(DEPS)
