@@ -192,6 +192,7 @@ ModelManifest.xml
 
 #vim files
 *.swp
+*.swo
 
 #app specific
 target/
