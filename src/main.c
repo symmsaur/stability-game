@@ -1,6 +1,6 @@
 #include "main.h"
 
-#define EDITOR
+//#define EDITOR
 
 const Uint8 *key_state;
 

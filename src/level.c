@@ -1,7 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <stdio.h>
 
 // Squash error message for fopen on Windows.
-#define _CRT_SECURE_NO_DEPRECATE
+
 
 #include "engine.h"
 #include "level.h"
