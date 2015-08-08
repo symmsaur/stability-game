@@ -73,6 +73,7 @@ void tick(){
 }
 
 void player_tick(){
+  static int adv_player_frame = 50;
   int collision;
   //struct player_state old_player = player;
   //struct player_state new_player = player;
@@ -81,9 +82,11 @@ void player_tick(){
 
   if (player.jmp_frames > 0) player.jmp_frames--;
 
+  // Update player position
   player.actor_state.x += (player.actor_state.vel_x >> 3);
   player.actor_state.y += (player.actor_state.vel_y >> 3);
 
+  // Handle player collisions.
   collision = actor_level_collision(&player.actor_state);
   if(collision == 1){
     player.actor_state.vel_x = 0;
@@ -94,14 +97,28 @@ void player_tick(){
     player.state |= ON_GROUND;
   }
 
+  // Decelerate player
   if (player.actor_state.vel_x > 0) player.actor_state.vel_x -= 2;
   else if (player.actor_state.vel_x < 0) player.actor_state.vel_x += 2;
+
+  // Make sure the player velocity reaches zero.
   if (player.actor_state.vel_x == -1 || player.actor_state.vel_x == 1) player.actor_state.vel_x = 0;
 
+  // Player should fall if not on ground.
   if (player.actor_state.vel_y < MAX_FALL_SPEED && !(player.state & ON_GROUND) && player.jmp_frames == 0) {
     player.actor_state.vel_y += GRAVITATIONAL_ACCELERATION;
   }
 
+  // Animate player sprite depending on how fast the player is moving.
   set_sprite(player.sprite, player.actor_state.x, player.actor_state.y);
-  if (!(frame_number % 5)) advance_sprite_frame(player.sprite);
+  if (adv_player_frame > 0){
+    adv_player_frame -= (10 * abs(player.actor_state.vel_x)) / (PLAYER_MAX_SPEED );
+  }
+  else{
+    advance_sprite_frame(player.sprite);
+    adv_player_frame = 50;
+  }
+    
+  if (player.actor_state.vel_x < 0) set_sprite_flip(player.sprite, SPRITE_FLIP_X);
+  else if (player.actor_state.vel_x > 0) set_sprite_flip(player.sprite, 0);
 }

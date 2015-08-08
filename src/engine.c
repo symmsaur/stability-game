@@ -9,12 +9,12 @@ struct sprite {
   int y;
   int frame;
   int n_frames;
+  int flip;
 };
 
-void draw_tile(int tile_number, int x, int y);
+void draw_tile(int tile_number, int x, int y, int flip);
 void draw_bg();
 void draw_sprites();
-
 
 static SDL_Window *window;
 static SDL_Renderer *renderer;
@@ -100,6 +100,10 @@ void advance_sprite_frame(int sprite_number){
     sprites[sprite_number].n_frames;
 }
 
+void set_sprite_flip(int sprite_number, int flip){
+  sprites[sprite_number].flip = flip;
+}
+
 void draw_bg()
 {
   for(int x = 0; x < BG_TILES_X; x++){
@@ -107,7 +111,8 @@ void draw_bg()
       draw_tile(
           x * TILE_SIZE * PIXEL_FACTOR, 
           y * TILE_SIZE * PIXEL_FACTOR, 
-          bg_tiles[y * BG_TILES_X + x]
+          bg_tiles[y * BG_TILES_X + x],
+          0
           );
     }
   }
@@ -121,14 +126,23 @@ void draw_sprites()
       draw_tile(
           sprites[i].x,
           sprites[i].y,
-          sprites[i].tile_number + sprites[i].frame
+          sprites[i].tile_number + sprites[i].frame,
+          sprites[i].flip
           );
     }
   }
 }
 
-void draw_tile(int x, int y, int tile_number) {
+void draw_tile(int x, int y, int tile_number, int flip) {
   SDL_Rect tile, target;
+  SDL_RendererFlip sdl_flip = 0 ;
+  
+  if (flip & SPRITE_FLIP_X){
+    sdl_flip |= SDL_FLIP_HORIZONTAL;
+  }
+  if (flip & SPRITE_FLIP_Y){
+    sdl_flip |= SDL_FLIP_VERTICAL;
+  }
 
   tile.x = TILE_SIZE * (tile_number % TILES_X);
   tile.y = TILE_SIZE * (tile_number / TILES_X);
@@ -140,5 +154,5 @@ void draw_tile(int x, int y, int tile_number) {
   target.w = TILE_SIZE * PIXEL_FACTOR;
   target.h = TILE_SIZE * PIXEL_FACTOR;
 
-  SDL_RenderCopy(renderer, tiles, &tile, &target);
+  SDL_RenderCopyEx(renderer, tiles, &tile, &target, 0, NULL, sdl_flip);
 }
