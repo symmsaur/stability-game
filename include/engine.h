@@ -3,8 +3,8 @@
 
 #include "tiles.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 #define PIXEL_FACTOR 2
 
 #define BG_TILES_X SCREEN_WIDTH / (TILE_SIZE * PIXEL_FACTOR)
