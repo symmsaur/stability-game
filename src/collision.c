@@ -3,25 +3,27 @@
 
 int check_solid(int x, int y);
 
-int check_solid(int x, int y){
-  return get_bg_tile(x, y) <= MAX_SOLID_TILE &&
-    get_bg_tile(x, y) >= MIN_SOLID_TILE;
+int check_solid(int x, int y) {
+	int tile_x = x / (TILE_SIZE * PIXEL_FACTOR);
+	int tile_y = y / (TILE_SIZE * PIXEL_FACTOR);
+	return get_bg_tile(tile_x, tile_y) <= MAX_SOLID_TILE &&
+		get_bg_tile(tile_x, tile_y) >= MIN_SOLID_TILE;
 }
 
 // Check collisions between an actor and the level
-int actor_level_collision(actor_state *actor)
-{
-  int tile_x = actor->x / (TILE_SIZE * PIXEL_FACTOR);
-  int tile_y = actor->y / (TILE_SIZE * PIXEL_FACTOR);
+int actor_level_collision(int x, int y) {
 
-  //printf("(%d, %d)", tile_x, tile_y);
-  //printf(":%d ", get_bg_tile(tile_x, tile_y));
-  if (check_solid(tile_x, tile_y)) return 1;
-  if (check_solid(tile_x, tile_y + 1 )) return 2;
-  if (check_solid(tile_x + 1, tile_y)) return 1;
-  if (check_solid(tile_x + 1, tile_y + 1)) return 2;
+	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
+	int margin = tile_pitch / 8;
 
-  return 0;
+
+	if (check_solid(x + margin, y + margin * 2) || 
+		check_solid(x + tile_pitch - 1 - margin, y + margin * 2) ||
+		check_solid(x + margin, y + tile_pitch - 1) ||
+		check_solid(x + tile_pitch - 1 - margin,  y + tile_pitch - 1)) {
+		return 1;
+	}
+	else return 0;
 }
 
 // Check actor-actor collisions
