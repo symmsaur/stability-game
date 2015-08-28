@@ -9,7 +9,7 @@
 #define CHR_RUN_LEFT 3
 #define CHR_RUN_LEFT_NUM 3
 
-#define FIRE_RUN_LEFT 12
+#define FIRE_RUN_LEFT 21
 #define FIRE_RUN_LEFT_NUM 3
 
 #define MIN_SOLID_TILE 8 * 4
@@ -19,4 +19,4 @@
 #define DARK_STONE 40
 #define BRIGHT_WALL 48
 
-#define SKY 58
+#define SKY 61

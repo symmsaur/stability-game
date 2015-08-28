@@ -11,6 +11,4 @@ void tick();
 typedef struct actor_state {
   int x;
   int y;
-  int vel_x;
-  int vel_y;
 } actor_state;

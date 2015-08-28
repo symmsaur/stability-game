@@ -5,4 +5,5 @@
 #define COLLISION_LEVEL_RIGHT 4
 #define COLLISION_LEVEL_BOTTOM 8
 
-int actor_level_collision(actor_state *actor);
+int actor_level_collision(int x, int y);
+int check_solid(int x, int y);

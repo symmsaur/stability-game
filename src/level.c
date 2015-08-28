@@ -1,20 +1,28 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
-
-// Squash error message for fopen on Windows.
-
+#include "main.h"
+#include "tiles.h"
+#include "game.h"
 
 #include "engine.h"
 #include "level.h"
 
 void load_level(const char* filename){
+	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
 	FILE* lvl_file;
 	lvl_file = fopen(filename, "r");
   // TODO: check for null
   for(int y = 0; y < BG_TILES_Y; y++){
     for (int x = 0; x < BG_TILES_X; x++){
-        set_bg_tile(x, y, fgetc(lvl_file));
+		int c = fgetc(lvl_file);
+#ifndef EDITOR
+		if (c == FIRE_RUN_LEFT) {
+			create_fireguy(x * tile_pitch, y * tile_pitch);
+			c = SKY;
+		}
+#endif
+        set_bg_tile(x, y, c);
     }
   }
 }

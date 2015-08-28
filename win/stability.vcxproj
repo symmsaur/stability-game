@@ -80,6 +80,7 @@
     <ClInclude Include="..\include\collision.h" />
     <ClInclude Include="..\include\editor.h" />
     <ClInclude Include="..\include\engine.h" />
+    <ClInclude Include="..\include\fireguy.h" />
     <ClInclude Include="..\include\game.h" />
     <ClInclude Include="..\include\level.h" />
     <ClInclude Include="..\include\main.h" />
@@ -89,6 +90,7 @@
     <ClCompile Include="..\src\collision.c" />
     <ClCompile Include="..\src\editor.c" />
     <ClCompile Include="..\src\engine.c" />
+    <ClCompile Include="..\src\fireguy.c" />
     <ClCompile Include="..\src\game.c" />
     <ClCompile Include="..\src\level.c" />
     <ClCompile Include="..\src\main.c" />
