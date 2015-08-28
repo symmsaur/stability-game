@@ -41,6 +41,11 @@ void init_game() {
 	load_level("../assets/level1.lvl");
 }
 
+void set_player_pos(int x, int y) {
+	player.actor_state.x = x;
+	player.actor_state.y = y;
+}
+
 void player_move(int dir) {
 	if (dir > 0) {
 		if (player.vel_x < 0) player.vel_x += PLAYER_DECELERATION;

@@ -21,6 +21,10 @@ void load_level(const char* filename){
 			create_fireguy(x * tile_pitch, y * tile_pitch);
 			c = SKY;
 		}
+		if (c == CHR_RUN_LEFT) {
+			set_player_pos(x * tile_pitch, y * tile_pitch);
+			c = SKY;
+		}
 #endif
         set_bg_tile(x, y, c);
     }
