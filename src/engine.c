@@ -25,7 +25,7 @@ static struct sprite *sprites;
 
 void init_engine() {
   srand(0);
-  SDL_Init(SDL_INIT_VIDEO);
+  SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER);
 
   window = SDL_CreateWindow("mld59", 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
       0);

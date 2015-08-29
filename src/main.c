@@ -1,18 +1,22 @@
 #include "main.h"
 
-
 const Uint8 *key_state;
+
+static SDL_GameController *controller;
 
 void print_stats();
 int command_args(int argc, const char *argv[]);
+int init_controllers();
 
 int main(int argc, const char *argv[]) {
 	int res;
 	printf("Starting...\n");
 	init_engine();
+
+	res = init_controllers();
+
 	res = load_assets();
-	if (res != 0)
-	{
+	if (res != 0) {
 		printf("Failed loading assets");
 		SDL_Quit();
 	}
@@ -29,18 +33,25 @@ int main(int argc, const char *argv[]) {
 
 	printf("Ready\n");
 	while (1) {
+		bool ce = SDL_GameControllerGetAttached(controller);
 		SDL_Event e;
 		if (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) break;
 		}
 		if (key_state[SDL_SCANCODE_ESCAPE]) break;
-		if (key_state[SDL_SCANCODE_LEFT]) {
+		if (key_state[SDL_SCANCODE_LEFT] ||
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT)
+			) {
 			player_move(-1);
 		}
-		if (key_state[SDL_SCANCODE_RIGHT]) {
+		if (key_state[SDL_SCANCODE_RIGHT] ||
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+			) {
 			player_move(1);
 		}
-		if (key_state[SDL_SCANCODE_SPACE]) {
+		if (key_state[SDL_SCANCODE_SPACE] ||
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_A)
+			) {
 			player_jump();
 		}
 		else {
@@ -76,5 +87,17 @@ int command_args(int argc, const char *argv[]) {
 		//if (strcmp("-e", argv[i]) == 0) flags |= CMD_ARG_EDITOR;
 	}
 	return flags;
+}
+
+int init_controllers() {
+	controller = NULL;
+	int n_joysticks = SDL_NumJoysticks();
+	for (int i = 0; i < n_joysticks; i++) {
+		if (SDL_IsGameController(i)) {
+			controller = SDL_GameControllerOpen(i);
+			return 0;
+		}
+	}
+	return 1;
 }
 
