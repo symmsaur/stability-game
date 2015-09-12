@@ -94,6 +94,7 @@
     <ClCompile Include="..\src\game.c" />
     <ClCompile Include="..\src\level.c" />
     <ClCompile Include="..\src\main.c" />
+    <ClCompile Include="..\src\solidgrunt.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
