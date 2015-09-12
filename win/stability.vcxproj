@@ -84,6 +84,7 @@
     <ClInclude Include="..\include\game.h" />
     <ClInclude Include="..\include\level.h" />
     <ClInclude Include="..\include\main.h" />
+    <ClInclude Include="..\include\solidgrunt.h" />
     <ClInclude Include="..\include\tiles.h" />
   </ItemGroup>
   <ItemGroup>

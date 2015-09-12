@@ -17,10 +17,10 @@ void init_fireguy() {
 	fireguys = malloc(sizeof(fireguy) * FIREGUY_CAP);
 }
 
-int create_fireguy(int x, int y) {
+void create_fireguy(int x, int y) {
 	fireguys[n_fireguys].actor_state.x = x;
 	fireguys[n_fireguys].actor_state.y = y;
-	fireguys[n_fireguys].sprite = create_sprite(FIRE_RUN_LEFT, FIRE_RUN_LEFT_NUM );
+	fireguys[n_fireguys].sprite = create_sprite(FIRE_RUN_LEFT, FIRE_RUN_LEFT_NUM);
 	fireguys[n_fireguys].move_state = left;
 	n_fireguys++;
 }
@@ -39,16 +39,14 @@ void tick_fireguy(fireguy *guy) {
 	if (guy->move_state == left) {
 		guy->actor_state.x -= FIREGUY_SPEED;
 		// check bottom left corner for the ground
-		if (!check_solid(guy->actor_state.x, guy->actor_state.y + tile_pitch + 1))
-		{
+		if (!check_solid(guy->actor_state.x, guy->actor_state.y + tile_pitch + 1)) {
 			guy->move_state = right;
 		}
 	}
 	else {
 		guy->actor_state.x += FIREGUY_SPEED;
 		// check bottom right corner for the ground
-		if (!check_solid(guy->actor_state.x + tile_pitch, guy->actor_state.y + tile_pitch + 1))
-		{
+		if (!check_solid(guy->actor_state.x + tile_pitch, guy->actor_state.y + tile_pitch + 1)) {
 			guy->move_state = left;
 		}
 	}

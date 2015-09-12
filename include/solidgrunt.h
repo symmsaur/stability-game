@@ -5,8 +5,8 @@ typedef struct {
 	actor_state actor_state;
 	int sprite;
 	move_state move_state;
-} fireguy;
+} solidgrunt;
 
-void create_fireguy(int x, int y);
-void init_fireguy();
-void tick_fireguys();
+void create_solidgrunt(int x, int y);
+void init_solidgrunt();
+void tick_solidgrunts();

@@ -39,6 +39,9 @@
     <ClInclude Include="..\include\fireguy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\solidgrunt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\engine.c">

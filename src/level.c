@@ -4,9 +4,10 @@
 #include "main.h"
 #include "tiles.h"
 #include "game.h"
-
 #include "engine.h"
 #include "level.h"
+#include "fireguy.h"
+#include "solidgrunt.h"
 
 void load_level(const char* filename){
 	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
@@ -19,6 +20,10 @@ void load_level(const char* filename){
 #ifndef EDITOR
 		if (c == FIRE_RUN_LEFT) {
 			create_fireguy(x * tile_pitch, y * tile_pitch);
+			c = SKY;
+		}
+		if (c == SOLIDGRUNT_RUN_LEFT) {
+			create_solidgrunt(x * tile_pitch, y * tile_pitch);
 			c = SKY;
 		}
 		if (c == CHR_RUN_LEFT) {

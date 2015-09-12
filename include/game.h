@@ -9,7 +9,11 @@ void player_jump();
 void player_end_jump();
 void tick();
 
-typedef struct actor_state {
+typedef struct {
   int x;
   int y;
 } actor_state;
+
+typedef enum {
+	left, right, up, down
+} move_state;

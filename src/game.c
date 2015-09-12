@@ -3,6 +3,7 @@
 #include "level.h"
 #include "collision.h"
 #include "fireguy.h"
+#include "solidgrunt.h"
 
 // FLAGS
 #define ON_GROUND 1
@@ -31,6 +32,7 @@ static struct player_state player;
 
 void init_game() {
 	init_fireguy();
+	init_solidgrunt();
 	player.sprite = create_sprite(CHR_RUN_LEFT, CHR_RUN_LEFT_NUM);
 	player.actor_state.x = SCREEN_WIDTH / 2;
 	player.actor_state.y = SCREEN_HEIGHT / 2;
@@ -78,6 +80,7 @@ void player_end_jump() {
 
 void tick() {
 	tick_fireguys();
+	tick_solidgrunts();
 	player_tick();
 }
 

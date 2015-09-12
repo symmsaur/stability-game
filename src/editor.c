@@ -48,7 +48,10 @@ void editor_loop(){
     if (key_state[SDL_SCANCODE_G]) update_current_tile('g');
     if (key_state[SDL_SCANCODE_H]) update_current_tile('h');
 
-    if (key_state[SDL_SCANCODE_S]) save_level("../assets/editor.lvl");
+	if (key_state[SDL_SCANCODE_S]) {
+		save_level("../assets/level1.lvl");
+		printf("level saved.");
+	}
 
     render_frame();
   }

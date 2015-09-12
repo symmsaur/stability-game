@@ -12,6 +12,9 @@
 #define FIRE_RUN_LEFT 21
 #define FIRE_RUN_LEFT_NUM 3
 
+#define SOLIDGRUNT_RUN_LEFT 12
+#define SOLIDGRUNT_RUN_LEFT_NUM 3
+
 #define MIN_SOLID_TILE 8 * 4
 #define MAX_SOLID_TILE 8 * 7 - 1
 
