@@ -21,6 +21,7 @@ void create_fireguy(int x, int y) {
 	fireguys[n_fireguys].actor_state.x = x;
 	fireguys[n_fireguys].actor_state.y = y;
 	fireguys[n_fireguys].sprite = create_sprite(FIRE_RUN_LEFT, FIRE_RUN_LEFT_NUM);
+	randomize_sprite(fireguys[n_fireguys].sprite);
 	fireguys[n_fireguys].move_state = left;
 	n_fireguys++;
 }
@@ -32,7 +33,6 @@ void tick_fireguys() {
 }
 
 void tick_fireguy(fireguy *guy) {
-	static int frame_n = 0;
 	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
 
 	// Behavior
@@ -53,11 +53,10 @@ void tick_fireguy(fireguy *guy) {
 
 	// Update sprite
 	set_sprite(guy->sprite, guy->actor_state.x, guy->actor_state.y);
-	if (frame_n % 5 == 0) {
+	if (global_frame_number % 5 == 0) {
 		advance_sprite_frame(guy->sprite);
 	}
 
 	if (guy->move_state == left) set_sprite_flip(guy->sprite, SPRITE_FLIP_X);
 	else  set_sprite_flip(guy->sprite, 0);
-	frame_n++;
 }

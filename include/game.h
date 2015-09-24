@@ -9,6 +9,8 @@ void player_jump();
 void player_end_jump();
 void tick();
 
+int global_frame_number;
+
 typedef struct {
   int x;
   int y;

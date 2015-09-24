@@ -33,6 +33,7 @@ static struct player_state player;
 void init_game() {
 	init_fireguy();
 	init_solidgrunt();
+	global_frame_number = 0;
 	player.sprite = create_sprite(CHR_RUN_LEFT, CHR_RUN_LEFT_NUM);
 	player.actor_state.x = SCREEN_WIDTH / 2;
 	player.actor_state.y = SCREEN_HEIGHT / 2;
@@ -82,6 +83,7 @@ void tick() {
 	tick_fireguys();
 	tick_solidgrunts();
 	player_tick();
+	global_frame_number++;
 }
 
 void update_player_position() {

@@ -100,6 +100,11 @@ void advance_sprite_frame(int sprite_number){
     sprites[sprite_number].n_frames;
 }
 
+void randomize_sprite(int sprite_number) {
+	int frames = rand() % sprites[sprite_number].n_frames;
+	for (int i = 0; i < frames; i++) advance_sprite_frame(sprite_number);
+}
+
 void set_sprite_flip(int sprite_number, int flip){
   sprites[sprite_number].flip = flip;
 }
