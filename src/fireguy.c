@@ -39,14 +39,16 @@ void tick_fireguy(fireguy *guy) {
 	if (guy->move_state == left) {
 		guy->actor_state.x -= FIREGUY_SPEED;
 		// check bottom left corner for the ground
-		if (!check_solid(guy->actor_state.x, guy->actor_state.y + tile_pitch + 1)) {
+		if (!check_solid(guy->actor_state.x, guy->actor_state.y + tile_pitch + 1)
+			|| check_solid(guy->actor_state.x-1, guy->actor_state.y)) {
 			guy->move_state = right;
 		}
 	}
 	else {
 		guy->actor_state.x += FIREGUY_SPEED;
 		// check bottom right corner for the ground
-		if (!check_solid(guy->actor_state.x + tile_pitch, guy->actor_state.y + tile_pitch + 1)) {
+		if (!check_solid(guy->actor_state.x + tile_pitch, guy->actor_state.y + tile_pitch + 1)
+			|| check_solid(guy->actor_state.x + tile_pitch + 1, guy->actor_state.y)) {
 			guy->move_state = left;
 		}
 	}

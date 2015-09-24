@@ -37,13 +37,15 @@ void tick_solidgrunt(solidgrunt *grunt) {
 	// Behavior
 	if (grunt->move_state == left) {
 		grunt->actor_state.x -= SOLIDGRUNT_SPEED;
-		if (!check_solid(grunt->actor_state.x, grunt->actor_state.y + tile_pitch + 1)) {
+		if (!check_solid(grunt->actor_state.x, grunt->actor_state.y + tile_pitch + 1)
+			|| check_solid(grunt->actor_state.x-1, grunt->actor_state.y)) {
 			grunt->move_state = right;
 		}
 	}
 	else if (grunt->move_state == right) {
 		grunt->actor_state.x += SOLIDGRUNT_SPEED;
-		if (!check_solid(grunt->actor_state.x + tile_pitch, grunt->actor_state.y + tile_pitch + 1)) {
+		if (!check_solid(grunt->actor_state.x + tile_pitch, grunt->actor_state.y + tile_pitch + 1)
+			|| check_solid(grunt->actor_state.x + tile_pitch + 1, grunt->actor_state.y)) {
 			grunt->move_state = left;
 		}
 	}
