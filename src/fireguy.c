@@ -10,11 +10,12 @@ void tick_fireguy(fireguy *guy);
 
 #define FIREGUY_SPEED 2
 
-static fireguy *fireguys;
+static fireguy *fireguys = NULL;
 static int n_fireguys = 0;
 
 void init_fireguy() {
-	fireguys = malloc(sizeof(fireguy) * FIREGUY_CAP);
+	if (fireguys == NULL) fireguys = malloc(sizeof(fireguy) * FIREGUY_CAP);
+	n_fireguys = 0;
 }
 
 void create_fireguy(int x, int y) {

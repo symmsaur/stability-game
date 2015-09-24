@@ -21,13 +21,7 @@ int main(int argc, const char *argv[]) {
 		SDL_Quit();
 	}
 
-#ifdef EDITOR
-	init_editor();
-	editor_loop();
-#else
 	init_game();
-#endif
-
 
 	key_state = SDL_GetKeyboardState(NULL);
 
@@ -56,6 +50,13 @@ int main(int argc, const char *argv[]) {
 		}
 		else {
 			player_end_jump();
+		}
+
+		if (key_state[SDL_SCANCODE_E] && key_state[SDL_SCANCODE_LSHIFT]) {
+			clear_sprites();
+			init_editor();
+			editor_loop();
+			init_game();
 		}
 
 		tick();

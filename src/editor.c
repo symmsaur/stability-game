@@ -12,7 +12,7 @@ void update_current_tile(char i);
 
 void init_editor(){
   printf("Initing editor\n");
-  load_level("../assets/level1.lvl");
+  load_level("../assets/level1.lvl", true);
   printf("Level loaded\n");
 }
 
@@ -29,7 +29,7 @@ void editor_loop(){
     if (SDL_GetMouseState(&mouse_x, &mouse_y) & SDL_BUTTON_LEFT){
       set_tile(mouse_x, mouse_y);
     }
-    if (key_state[SDL_SCANCODE_ESCAPE]) break;
+    if (key_state[SDL_SCANCODE_Q]) break;
 
     if (key_state[SDL_SCANCODE_1]) update_current_tile('1');
     if (key_state[SDL_SCANCODE_2]) update_current_tile('2');

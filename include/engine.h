@@ -24,8 +24,10 @@ int render_frame();
 
 void set_bg_tile(int x, int y, int tile_number);
 int get_bg_tile(int x, int y);
+
 int create_sprite(int tile_number, int n_frames);
 void set_sprite(int sprite_number, int x, int y);
 void advance_sprite_frame(int sprite_number);
 void set_sprite_flip(int sprite_number, int flip);
+void clear_sprites();
 

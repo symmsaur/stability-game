@@ -9,7 +9,7 @@
 #include "fireguy.h"
 #include "solidgrunt.h"
 
-void load_level(const char* filename){
+void load_level(const char* filename, int in_editor){
 	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
 	FILE* lvl_file;
 	lvl_file = fopen(filename, "r");
@@ -17,20 +17,20 @@ void load_level(const char* filename){
   for(int y = 0; y < BG_TILES_Y; y++){
     for (int x = 0; x < BG_TILES_X; x++){
 		int c = fgetc(lvl_file);
-#ifndef EDITOR
-		if (c == FIRE_RUN_LEFT) {
-			create_fireguy(x * tile_pitch, y * tile_pitch);
-			c = SKY;
+		if (!in_editor) {
+			if (c == FIRE_RUN_LEFT) {
+				create_fireguy(x * tile_pitch, y * tile_pitch);
+				c = SKY;
+			}
+			if (c == SOLIDGRUNT_RUN_LEFT) {
+				create_solidgrunt(x * tile_pitch, y * tile_pitch);
+				c = SKY;
+			}
+			if (c == CHR_RUN_LEFT) {
+				set_player_pos(x * tile_pitch, y * tile_pitch);
+				c = SKY;
+			}
 		}
-		if (c == SOLIDGRUNT_RUN_LEFT) {
-			create_solidgrunt(x * tile_pitch, y * tile_pitch);
-			c = SKY;
-		}
-		if (c == CHR_RUN_LEFT) {
-			set_player_pos(x * tile_pitch, y * tile_pitch);
-			c = SKY;
-		}
-#endif
         set_bg_tile(x, y, c);
     }
   }
@@ -45,5 +45,6 @@ void save_level(const char* filename){
       fputc(get_bg_tile(x,y), lvl_file);
     }
   }
+  fclose(lvl_file);
 }
 

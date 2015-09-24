@@ -9,11 +9,12 @@ void tick_solidgrunt(solidgrunt *grunt);
 #define SOLIDGRUNT_CAP 64
 #define SOLIDGRUNT_SPEED 1
 
-static solidgrunt *solidgrunts;
+static solidgrunt *solidgrunts = NULL;
 static int n_solidgrunts = 0;
 
 void init_solidgrunt() {
-	solidgrunts = malloc(sizeof(solidgrunt) * SOLIDGRUNT_CAP);
+	if (solidgrunts == NULL) solidgrunts = malloc(sizeof(solidgrunt) * SOLIDGRUNT_CAP);
+	n_solidgrunts = 0;
 }
 
 void create_solidgrunt(int x, int y) {

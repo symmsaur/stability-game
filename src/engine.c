@@ -3,14 +3,14 @@
 
 #define SPRITE_CAP 64
 
-struct sprite {
+typedef struct {
   int tile_number;
   int x;
   int y;
   int frame;
   int n_frames;
   int flip;
-};
+} sprite;
 
 void draw_tile(int tile_number, int x, int y, int flip);
 void draw_bg();
@@ -21,7 +21,7 @@ static SDL_Renderer *renderer;
 static SDL_Texture *tiles;
 
 static int *bg_tiles;
-static struct sprite *sprites;
+static sprite *sprites;
 
 void init_engine() {
   srand(0);
@@ -42,7 +42,7 @@ void init_engine() {
   }
 
   bg_tiles = malloc(sizeof(int) * BG_TILES_X * BG_TILES_Y);
-  sprites = malloc(sizeof(struct sprite) * SPRITE_CAP);
+  sprites = malloc(sizeof(sprite) * SPRITE_CAP);
   for(int i = 0; i < SPRITE_CAP; i++) {
     sprites[i].tile_number = -1;
   }
@@ -79,14 +79,21 @@ int get_bg_tile(int x, int y)
   return bg_tiles[y * BG_TILES_X + x];
 }
 
+static int n_sprites = 0;
+
+void clear_sprites()
+{
+	SDL_memset(sprites, 0, sizeof(sprite) * n_sprites);
+	n_sprites = 0;
+}
+
 int create_sprite(int tile_number, int n_frames)
 {
-  static int next = 0;
-  sprites[next].tile_number = tile_number;
-  sprites[next].n_frames = n_frames;
-  sprites[next].frame = 0;
-  set_sprite(next, 0, 0);
-  return next++;
+  sprites[n_sprites].tile_number = tile_number;
+  sprites[n_sprites].n_frames = n_frames;
+  sprites[n_sprites].frame = 0;
+  set_sprite(n_sprites, 0, 0);
+  return n_sprites++;
 }
 
 void set_sprite(int sprite_number, int x, int y)

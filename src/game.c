@@ -34,6 +34,7 @@ void init_game() {
 	init_fireguy();
 	init_solidgrunt();
 	global_frame_number = 0;
+	clear_sprites();
 	player.sprite = create_sprite(CHR_RUN_LEFT, CHR_RUN_LEFT_NUM);
 	player.actor_state.x = SCREEN_WIDTH / 2;
 	player.actor_state.y = SCREEN_HEIGHT / 2;
@@ -41,7 +42,7 @@ void init_game() {
 	player.vel_y = 0;
 	player.jmp_frames = 0;
 	player.state = 0;
-	load_level("../assets/level1.lvl");
+	load_level("../assets/level1.lvl", false);
 }
 
 void set_player_pos(int x, int y) {
