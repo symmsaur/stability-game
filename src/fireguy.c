@@ -27,13 +27,25 @@ void create_fireguy(int x, int y) {
 	n_fireguys++;
 }
 
+fireguy* get_fireguy(int i) {
+	if (i >= n_fireguys) return NULL;
+	else return &fireguys[i];
+}
+
+
 void tick_fireguys() {
 	for (int i = 0; i < n_fireguys; i++) {
 		tick_fireguy(&fireguys[i]);
 	}
 }
 
+void kill_guy(fireguy *guy) {
+	guy->move_state = dead;
+	recreate_sprite(guy->sprite, -1, 1);
+}
+
 void tick_fireguy(fireguy *guy) {
+	if (guy->move_state == dead) return;
 	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
 
 	// Behavior
@@ -41,11 +53,11 @@ void tick_fireguy(fireguy *guy) {
 		guy->actor_state.x -= FIREGUY_SPEED;
 		// check bottom left corner for the ground
 		if (!check_solid(guy->actor_state.x, guy->actor_state.y + tile_pitch + 1)
-			|| check_solid(guy->actor_state.x-1, guy->actor_state.y)) {
+			|| check_solid(guy->actor_state.x - 1, guy->actor_state.y)) {
 			guy->move_state = right;
 		}
 	}
-	else {
+	else if (guy->move_state == right) {
 		guy->actor_state.x += FIREGUY_SPEED;
 		// check bottom right corner for the ground
 		if (!check_solid(guy->actor_state.x + tile_pitch, guy->actor_state.y + tile_pitch + 1)

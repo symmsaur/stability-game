@@ -26,6 +26,11 @@ void create_solidgrunt(int x, int y) {
 	n_solidgrunts++;
 }
 
+solidgrunt* get_solidgrunt(int i) {
+	if (i >= n_solidgrunts) return NULL;
+	else return &solidgrunts[i];
+}
+
 void tick_solidgrunts() {
 	for (int i = 0; i < n_solidgrunts; i++) {
 		tick_solidgrunt(&solidgrunts[i]);

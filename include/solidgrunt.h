@@ -9,4 +9,5 @@ typedef struct {
 
 void create_solidgrunt(int x, int y);
 void init_solidgrunt();
+solidgrunt* get_solidgrunt(int i);
 void tick_solidgrunts();

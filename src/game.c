@@ -4,6 +4,7 @@
 #include "collision.h"
 #include "fireguy.h"
 #include "solidgrunt.h"
+#include "interactions.h"
 
 // FLAGS
 #define ON_GROUND 1
@@ -84,6 +85,7 @@ void tick() {
 	tick_fireguys();
 	tick_solidgrunts();
 	player_tick();
+	resolve_collisions();
 	global_frame_number++;
 }
 

@@ -17,5 +17,5 @@ typedef struct {
 } actor_state;
 
 typedef enum {
-	left, right, up, down
+	left, right, up, down, flying, dead
 } move_state;

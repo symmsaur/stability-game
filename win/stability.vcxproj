@@ -82,6 +82,7 @@
     <ClInclude Include="..\include\engine.h" />
     <ClInclude Include="..\include\fireguy.h" />
     <ClInclude Include="..\include\game.h" />
+    <ClInclude Include="..\include\interactions.h" />
     <ClInclude Include="..\include\level.h" />
     <ClInclude Include="..\include\main.h" />
     <ClInclude Include="..\include\solidgrunt.h" />
@@ -93,6 +94,7 @@
     <ClCompile Include="..\src\engine.c" />
     <ClCompile Include="..\src\fireguy.c" />
     <ClCompile Include="..\src\game.c" />
+    <ClCompile Include="..\src\interactions.c" />
     <ClCompile Include="..\src\level.c" />
     <ClCompile Include="..\src\main.c" />
     <ClCompile Include="..\src\solidgrunt.c" />

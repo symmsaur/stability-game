@@ -96,6 +96,11 @@ int create_sprite(int tile_number, int n_frames)
   return n_sprites++;
 }
 
+void recreate_sprite(int sprite_number, int tile_number, int n_frames) {
+	sprites[sprite_number].tile_number = tile_number;
+	sprites[sprite_number].n_frames = n_frames;
+}
+
 void set_sprite(int sprite_number, int x, int y)
 {
   sprites[sprite_number].x = x;
