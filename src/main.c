@@ -5,7 +5,6 @@ const Uint8 *key_state;
 static SDL_GameController *controller;
 
 void print_stats();
-int command_args(int argc, const char *argv[]);
 int init_controllers();
 
 int main(int argc, const char *argv[]) {
@@ -79,15 +78,6 @@ int wmain() {
 void print_stats() {
 	printf("bg_tiles_x: %d\n", BG_TILES_X);
 	printf("bg_tiles_y: %d\n", BG_TILES_Y);
-}
-
-int command_args(int argc, const char *argv[]) {
-	int flags = 0;
-	for (int i = 0; i < argc; i++) {
-		// strcmp is a comparer, returns 0 for match.
-		//if (strcmp("-e", argv[i]) == 0) flags |= CMD_ARG_EDITOR;
-	}
-	return flags;
 }
 
 int init_controllers() {
