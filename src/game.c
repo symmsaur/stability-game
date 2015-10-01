@@ -26,6 +26,8 @@ struct player_state {
 	int vel_y;
 	int sprite;
 	int jmp_frames;
+	fireguy *picked_up_guy;
+	int enable_pickup;
 	int state;
 };
 
@@ -49,6 +51,10 @@ void init_game() {
 void set_player_pos(int x, int y) {
 	player.actor_state.x = x;
 	player.actor_state.y = y;
+}
+
+actor_state* get_player_actor_state() {
+	return &player.actor_state;
 }
 
 void player_move(int dir) {
@@ -89,6 +95,18 @@ void tick() {
 	global_frame_number++;
 }
 
+void player_enable_pickup(int enable) {
+	player.enable_pickup = enable;
+}
+
+void player_pickup_guy(fireguy *guy) {
+	if (player.enable_pickup)
+	{
+		guy->move_state = picked_up;
+		player.picked_up_guy = guy;
+	}
+}
+
 void update_player_position() {
 	int vel_x = player.vel_x / 8;
 	int vel_y = player.vel_y / 8;
@@ -126,6 +144,11 @@ void update_player_position() {
 }
 
 void player_tick() {
+	if (!player.enable_pickup && player.picked_up_guy != NULL)
+	{
+		player.picked_up_guy->move_state = left;
+		player.picked_up_guy = NULL;
+	}
 	static int adv_player_frame = 50;
 	player.state = 0;
 
@@ -154,7 +177,31 @@ void player_tick() {
 		advance_sprite_frame(player.sprite);
 		adv_player_frame = 50;
 	}
-
-	if (player.vel_x < 0) set_sprite_flip(player.sprite, SPRITE_FLIP_X);
-	else if (player.vel_x > 0) set_sprite_flip(player.sprite, 0);
+	
+	if (player.vel_x < 0)
+	{
+		set_sprite_flip(player.sprite, SPRITE_FLIP_X);
+		if (player.picked_up_guy != NULL)
+		{
+			update_picked_up_guy(
+				player.picked_up_guy,
+				player.actor_state.x,
+				player.actor_state.y,
+				SPRITE_FLIP_X
+				);
+		}
+	}
+	else if (player.vel_x > 0)
+	{
+		set_sprite_flip(player.sprite, 0);
+		if (player.picked_up_guy != NULL)
+		{
+			update_picked_up_guy(
+				player.picked_up_guy,
+				player.actor_state.x,
+				player.actor_state.y,
+				0
+				);
+		}
+	}
 }

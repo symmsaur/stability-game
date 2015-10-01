@@ -1,7 +1,6 @@
 #include "collision.h"
 #include "engine.h"
 
-#define TILE_PITCH (TILE_SIZE * PIXEL_FACTOR) 
 #define MARGIN (TILE_PITCH / 8) 
 
 int check_solid(int x, int y);

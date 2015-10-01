@@ -6,6 +6,7 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
 #define PIXEL_FACTOR 2
+#define TILE_PITCH (TILE_SIZE * PIXEL_FACTOR) 
 
 #define BG_TILES_X SCREEN_WIDTH / (TILE_SIZE * PIXEL_FACTOR)
 #define BG_TILES_Y SCREEN_HEIGHT / (TILE_SIZE * PIXEL_FACTOR)
@@ -27,6 +28,7 @@ int get_bg_tile(int x, int y);
 
 int create_sprite(int tile_number, int n_frames);
 void recreate_sprite(int sprite_number, int tile_number, int n_frames);
+void randomize_sprite(int sprite_number);
 void set_sprite(int sprite_number, int x, int y);
 void advance_sprite_frame(int sprite_number);
 void set_sprite_flip(int sprite_number, int flip);

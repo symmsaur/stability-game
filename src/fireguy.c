@@ -44,8 +44,24 @@ void kill_guy(fireguy *guy) {
 	recreate_sprite(guy->sprite, -1, 1);
 }
 
+void update_picked_up_guy(fireguy *guy, int x, int y, int flip) {
+	int offset;
+	if (flip == SPRITE_FLIP_X) {
+		set_sprite_flip(guy->sprite, SPRITE_FLIP_X);
+		offset = -TILE_PITCH * .5;
+	}
+	else {
+		set_sprite_flip(guy->sprite, 0);
+		offset = TILE_PITCH * .5;
+	}
+	guy->actor_state.x = x + offset;
+	guy->actor_state.y = y - TILE_PITCH * .2;
+	set_sprite(guy->sprite, guy->actor_state.x, guy->actor_state.y);
+
+}
+
 void tick_fireguy(fireguy *guy) {
-	if (guy->move_state == dead) return;
+	if (guy->move_state == dead || guy->move_state == picked_up) return;
 	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
 
 	// Behavior

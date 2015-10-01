@@ -33,23 +33,28 @@ int main(int argc, const char *argv[]) {
 		}
 		if (key_state[SDL_SCANCODE_ESCAPE]) break;
 		if (key_state[SDL_SCANCODE_LEFT] ||
-			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT)
-			) {
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_LEFT)) {
 			player_move(-1);
 		}
 		if (key_state[SDL_SCANCODE_RIGHT] ||
-			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
-			) {
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_DPAD_RIGHT)) {
 			player_move(1);
 		}
 		if (key_state[SDL_SCANCODE_SPACE] ||
-			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_A)
-			) {
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_A)) {
 			player_jump();
 		}
 		else {
 			player_end_jump();
 		}
+		if (key_state[SDL_SCANCODE_LCTRL] ||
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_B)) {
+			player_enable_pickup(1);
+		}
+		else {
+			player_enable_pickup(0);
+		}
+
 
 		if (key_state[SDL_SCANCODE_E] && key_state[SDL_SCANCODE_LSHIFT]) {
 			clear_sprites();
