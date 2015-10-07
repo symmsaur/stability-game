@@ -48,16 +48,22 @@ void update_picked_up_guy(fireguy *guy, int x, int y, int flip) {
 	int offset;
 	if (flip == SPRITE_FLIP_X) {
 		set_sprite_flip(guy->sprite, SPRITE_FLIP_X);
-		offset = -TILE_PITCH * .5;
+		offset = -TILE_PITCH / 2;
 	}
 	else {
 		set_sprite_flip(guy->sprite, 0);
-		offset = TILE_PITCH * .5;
+		offset = TILE_PITCH / 2;
 	}
 	guy->actor_state.x = x + offset;
 	guy->actor_state.y = y - TILE_PITCH * .2;
 	set_sprite(guy->sprite, guy->actor_state.x, guy->actor_state.y);
 
+}
+
+void fly(fireguy *guy) {
+	guy->actor_state.x += guy->vel_x / 8;
+	guy->actor_state.y += guy->vel_y / 8;
+	guy->vel_y += GRAVITATIONAL_ACCELERATION;
 }
 
 void tick_fireguy(fireguy *guy) {
@@ -80,6 +86,9 @@ void tick_fireguy(fireguy *guy) {
 			|| check_solid(guy->actor_state.x + tile_pitch + 1, guy->actor_state.y)) {
 			guy->move_state = left;
 		}
+	}
+	else if (guy->move_state == flying) {
+		fly(guy);
 	}
 
 	// Update sprite

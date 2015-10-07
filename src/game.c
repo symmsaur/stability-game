@@ -15,8 +15,10 @@
 #define PLAYER_MAX_SPEED 32
 #define PLAYER_JUMP_SPEED (-48)
 #define PLAYER_JUMP_FRAMES 13
-#define GRAVITATIONAL_ACCELERATION 6
 #define MAX_FALL_SPEED 88
+
+#define THROW_SPEED_X 48
+#define THROW_SPEED_Y 24
 
 void player_tick();
 
@@ -86,7 +88,6 @@ void player_end_jump() {
 	player.jmp_frames = 0;
 }
 
-
 void tick() {
 	tick_fireguys();
 	tick_solidgrunts();
@@ -143,12 +144,51 @@ void update_player_position() {
 	}
 }
 
+// WIP
+//int update_actor_position(actor_state *actor) {
+//	int vel_x = actor->vel_x / 8;
+//	int vel_y = actor->vel_y / 8;
+//	int sgn_x = vel_x > 0 ? 1 : -1;
+//	int sgn_y = vel_y > 0 ? 1 : -1;
+//	int p_x = actor->x;
+//	int p_y = actor->y;
+//
+//	// We will move pixel by pixel and check for collisions along the way.
+//	for (int dx = sgn_x; abs(dx) <= abs(vel_x); dx += sgn_x) {
+//		if (actor_level_collision(p_x + dx, p_y)) {
+//			player.vel_x = 0;
+//			break;
+//		}
+//		else {
+//			player.actor_state.x += sgn_x;
+//		}
+//	}
+//	for (int dy = sgn_y; abs(dy) <= abs(vel_y); dy += sgn_y) {
+//		if (actor_level_collision(player.actor_state.x, p_y + dy)) {
+//			if (vel_y > 0) {
+//				player.state |= ON_GROUND;
+//			}
+//			else {
+//				// Cancel any jump if we hit our head.
+//				player.jmp_frames = 0;
+//			}
+//			player.vel_y = 0;
+//			break;
+//		}
+//		else {
+//			player.actor_state.y += sgn_y;
+//		}
+//	}
+//}
+
 void player_tick() {
-	if (!player.enable_pickup && player.picked_up_guy != NULL)
-	{
-		player.picked_up_guy->move_state = left;
+	if (!player.enable_pickup && player.picked_up_guy != NULL) {
+		player.picked_up_guy->move_state = flying;
+		player.picked_up_guy->vel_x = player.vel_x + ((player.vel_x > 0) - (player.vel_x < 0)) * THROW_SPEED_X;
+		player.picked_up_guy->vel_y = player.vel_y - THROW_SPEED_Y;
 		player.picked_up_guy = NULL;
 	}
+
 	static int adv_player_frame = 50;
 	player.state = 0;
 
@@ -167,12 +207,11 @@ void player_tick() {
 	// Make sure the player velocity reaches zero.
 	if (player.vel_x == -1 || player.vel_x == 1) player.vel_x = 0;
 
-
 	// Animate player sprite depending on how fast the player is moving.
 	set_sprite(player.sprite, player.actor_state.x, player.actor_state.y);
 	if (adv_player_frame > 0) {
 		adv_player_frame -= (10 * abs(player.vel_x)) / (PLAYER_MAX_SPEED);
-	}
+	} 
 	else {
 		advance_sprite_frame(player.sprite);
 		adv_player_frame = 50;

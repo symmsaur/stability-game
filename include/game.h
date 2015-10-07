@@ -3,6 +3,8 @@
 
 // game logic headers
 
+#define GRAVITATIONAL_ACCELERATION 6
+
 typedef struct fireguy fireguy;
 typedef struct actor_state {
   int x;

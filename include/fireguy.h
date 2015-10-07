@@ -6,6 +6,8 @@
 typedef struct fireguy {
 	actor_state actor_state;
 	int sprite;
+	int vel_x;
+	int vel_y;
 	move_state move_state;
 } fireguy;
 
