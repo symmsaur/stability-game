@@ -102,7 +102,7 @@ void player_enable_pickup(int enable) {
 }
 
 void player_pickup_guy(fireguy *guy) {
-	if (player.enable_pickup)
+	if (player.enable_pickup && player.picked_up_guy == NULL)
 	{
 		guy->move_state = picked_up;
 		player.picked_up_guy = guy;
