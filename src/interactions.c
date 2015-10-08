@@ -9,10 +9,13 @@ void resolve_collisions() {
 	fireguy *guy;
 	solidgrunt *grunt;
 	while ((guy = get_fireguy(i++)) != 0) {
+		if (guy->move_state == dead) continue;
 		int j = 0;
 		while ((grunt = get_solidgrunt(j++)) != 0) {
+			if (grunt->move_state == dead) continue;
 			if (actor_actor_collision(guy->actor_state, grunt->actor_state)) {
-				kill_guy(guy);
+				if (guy->move_state == flying) kill_grunt(grunt);
+				else kill_guy(guy);
 			}
 		}
 	}

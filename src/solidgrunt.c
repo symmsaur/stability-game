@@ -37,11 +37,17 @@ void tick_solidgrunts() {
 	}
 }
 
+void kill_grunt(solidgrunt *grunt) {
+	grunt->move_state = dead;
+	recreate_sprite(grunt->sprite, -1, 1);
+}
+
 void tick_solidgrunt(solidgrunt *grunt) {
 	int tile_pitch = TILE_SIZE * PIXEL_FACTOR;
 
 	// Behavior
-	if (grunt->move_state == left) {
+	if (grunt->move_state == dead) return;
+	else if (grunt->move_state == left) {
 		grunt->actor_state.x -= SOLIDGRUNT_SPEED;
 		if (!check_solid(grunt->actor_state.x, grunt->actor_state.y + tile_pitch + 1)
 			|| check_solid(grunt->actor_state.x-1, grunt->actor_state.y)) {

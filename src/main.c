@@ -48,7 +48,7 @@ int main(int argc, const char *argv[]) {
 			player_end_jump();
 		}
 		if (key_state[SDL_SCANCODE_LCTRL] ||
-			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_B)) {
+			ce && SDL_GameControllerGetButton(controller, SDL_CONTROLLER_BUTTON_X)) {
 			player_enable_pickup(1);
 		}
 		else {

@@ -144,48 +144,48 @@ void update_player_position() {
 	}
 }
 
-// WIP
-//int update_actor_position(actor_state *actor) {
-//	int vel_x = actor->vel_x / 8;
-//	int vel_y = actor->vel_y / 8;
-//	int sgn_x = vel_x > 0 ? 1 : -1;
-//	int sgn_y = vel_y > 0 ? 1 : -1;
-//	int p_x = actor->x;
-//	int p_y = actor->y;
-//
-//	// We will move pixel by pixel and check for collisions along the way.
-//	for (int dx = sgn_x; abs(dx) <= abs(vel_x); dx += sgn_x) {
-//		if (actor_level_collision(p_x + dx, p_y)) {
-//			player.vel_x = 0;
-//			break;
-//		}
-//		else {
-//			player.actor_state.x += sgn_x;
-//		}
-//	}
-//	for (int dy = sgn_y; abs(dy) <= abs(vel_y); dy += sgn_y) {
-//		if (actor_level_collision(player.actor_state.x, p_y + dy)) {
-//			if (vel_y > 0) {
-//				player.state |= ON_GROUND;
-//			}
-//			else {
-//				// Cancel any jump if we hit our head.
-//				player.jmp_frames = 0;
-//			}
-//			player.vel_y = 0;
-//			break;
-//		}
-//		else {
-//			player.actor_state.y += sgn_y;
-//		}
-//	}
-//}
+int update_actor_position(actor_state *actor) {
+	int ret = 0;
+	int vel_x = actor->vel_x / 8;
+	int vel_y = actor->vel_y / 8;
+	int sgn_x = vel_x > 0 ? 1 : -1;
+	int sgn_y = vel_y > 0 ? 1 : -1;
+	int p_x = actor->x;
+	int p_y = actor->y;
+
+	// We will move pixel by pixel and check for collisions along the way.
+	for (int dx = sgn_x; abs(dx) <= abs(vel_x); dx += sgn_x) {
+		if (actor_level_collision(p_x + dx, p_y)) {
+			if (sgn_x > 0) ret |= COLLISION_RIGHT_FLAG;
+			else ret |= COLLISION_LEFT_FLAG;
+			break;
+		}
+		else {
+			actor->x += sgn_x;
+		}
+	}
+	for (int dy = sgn_y; abs(dy) <= abs(vel_y); dy += sgn_y) {
+		if (actor_level_collision(actor->x, p_y + dy)) {
+			if (sgn_y > 0) {
+				ret |= COLLISION_BOTTOM_FLAG;
+			}
+			else {
+				ret |= COLLISION_TOP_FLAG;
+			}
+			break;
+		}
+		else {
+			actor->y += sgn_y;
+		}
+	}
+	return ret;
+}
 
 void player_tick() {
 	if (!player.enable_pickup && player.picked_up_guy != NULL) {
 		player.picked_up_guy->move_state = flying;
-		player.picked_up_guy->vel_x = player.vel_x + ((player.vel_x > 0) - (player.vel_x < 0)) * THROW_SPEED_X;
-		player.picked_up_guy->vel_y = player.vel_y - THROW_SPEED_Y;
+		player.picked_up_guy->actor_state.vel_x = player.vel_x + ((player.vel_x > 0) - (player.vel_x < 0)) * THROW_SPEED_X;
+		player.picked_up_guy->actor_state.vel_y = player.vel_y - THROW_SPEED_Y;
 		player.picked_up_guy = NULL;
 	}
 
