@@ -31,6 +31,7 @@ struct player_state {
 	int jmp_frames;
 	fireguy *picked_up_guy;
 	int enable_pickup;
+	int jump_reset;
 	int state;
 };
 
@@ -48,6 +49,7 @@ void init_game() {
 	player.vel_y = 0;
 	player.jmp_frames = 0;
 	player.state = 0;
+	player.jump_reset = 1;
 	load_level("../assets/level1.lvl", false);
 }
 
@@ -76,8 +78,9 @@ void player_move(int dir) {
 }
 
 void player_jump() {
-	if (player.state & ON_GROUND) {
+	if (player.state & ON_GROUND && player.jump_reset) {
 		player.jmp_frames = PLAYER_JUMP_FRAMES;
+		player.jump_reset = 0;
 	}
 	if (player.jmp_frames > 0)
 	{
@@ -87,6 +90,7 @@ void player_jump() {
 
 void player_end_jump() {
 	player.jmp_frames = 0;
+	if (player.state & ON_GROUND) player.jump_reset = 1;
 }
 
 void tick() {
