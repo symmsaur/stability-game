@@ -228,7 +228,7 @@ void player_tick() {
 				);
 		}
 	}
-	else if (player.vel_x > 0)
+	else if (player.vel_x >= 0)
 	{
 		set_sprite_flip(player.sprite, 0);
 		if (player.picked_up_guy != NULL)

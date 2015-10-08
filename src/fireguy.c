@@ -32,7 +32,6 @@ fireguy* get_fireguy(int i) {
 	else return &fireguys[i];
 }
 
-
 void tick_fireguys() {
 	for (int i = 0; i < n_fireguys; i++) {
 		tick_fireguy(&fireguys[i]);
@@ -55,7 +54,7 @@ void update_picked_up_guy(fireguy *guy, int x, int y, int flip) {
 		offset = TILE_PITCH / 2;
 	}
 	guy->actor_state.x = x + offset;
-	guy->actor_state.y = y - TILE_PITCH / 2;
+	guy->actor_state.y = y - TILE_PITCH / 8;
 	set_sprite(guy->sprite, guy->actor_state.x, guy->actor_state.y);
 
 }
