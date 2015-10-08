@@ -10,8 +10,9 @@
 #define ON_GROUND 1
 
 // MOVEMENT CONSTANTS
-#define PLAYER_DECELERATION 1
-#define PLAYER_ACCELERATION 4
+#define PLAYER_ACCELERATION 3
+#define PLAYER_DECELERATION PLAYER_ACCELERATION
+#define PLAYER_FRICTION 1
 #define PLAYER_MAX_SPEED 32
 #define PLAYER_JUMP_SPEED (-48)
 #define PLAYER_JUMP_FRAMES 13
@@ -201,11 +202,8 @@ void player_tick() {
 	update_player_position();
 
 	// Decelerate player
-	if (player.vel_x > 0) player.vel_x -= 2;
-	else if (player.vel_x < 0) player.vel_x += 2;
-
-	// Make sure the player velocity reaches zero.
-	if (player.vel_x == -1 || player.vel_x == 1) player.vel_x = 0;
+	if (player.vel_x > 0) player.vel_x -= PLAYER_FRICTION;
+	else if (player.vel_x < 0) player.vel_x += PLAYER_FRICTION;
 
 	// Animate player sprite depending on how fast the player is moving.
 	set_sprite(player.sprite, player.actor_state.x, player.actor_state.y);
