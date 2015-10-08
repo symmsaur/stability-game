@@ -62,11 +62,11 @@ void update_picked_up_guy(fireguy *guy, int x, int y, int flip) {
 
 void fly(fireguy *guy) {
 	int flags = update_actor_position(&guy->actor_state);
-	if (flags & COLLISION_TOP_FLAG) guy->actor_state.vel_y = -(guy->actor_state.vel_y / 3);
-	if (flags & (COLLISION_RIGHT_FLAG | COLLISION_LEFT_FLAG)) guy->actor_state.vel_x = -(guy->actor_state.vel_x / 3);
+	if (flags & COLLISION_TOP_FLAG) guy->actor_state.vel_y = -(guy->actor_state.vel_y / 2);
+	if (flags & (COLLISION_RIGHT_FLAG | COLLISION_LEFT_FLAG)) guy->actor_state.vel_x = -(guy->actor_state.vel_x / 2);
 	if (flags & COLLISION_BOTTOM_FLAG) {
-		guy->actor_state.vel_y = -(guy->actor_state.vel_y / 3);
-		guy->actor_state.vel_x = (guy->actor_state.vel_x) / 2;
+		guy->actor_state.vel_y = -(guy->actor_state.vel_y / 2);
+		guy->actor_state.vel_x = (guy->actor_state.vel_x) - 2 * ((guy->actor_state.vel_x > 0) - (guy->actor_state.vel_x < 0));
 	}
 	if (flags != 0 && abs(guy->actor_state.vel_x) < 8 && abs(guy->actor_state.vel_y) < 8) kill_guy(guy);
 	guy->actor_state.vel_y += GRAVITATIONAL_ACCELERATION;
