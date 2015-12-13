@@ -12,10 +12,21 @@ int check_solid(int x, int y) {
 		get_bg_tile(tile_x, tile_y) >= MIN_SOLID_TILE;
 }
 
-// Check collisions between an actor and the level
+int at_ladder(int x, int y) {
+	// Do we line up perfectly?
+	int mod_pos = x % TILE_PITCH;
+	if (mod_pos != 0) return 0;
+
+	y += TILE_PITCH - 1;
+	int tile_x = x / TILE_PITCH;
+	int tile_y = y / TILE_PITCH;
+	return get_bg_tile(tile_x, tile_y) <= MAX_LADDER_TILE &&
+		get_bg_tile(tile_x, tile_y) >= MIN_LADDER_TILE;
+
+}
+
 int actor_level_collision(int x, int y) {
 	int margin = TILE_PITCH / 8;
-
 
 	if (check_solid(x + margin, y + margin * 2) || 
 		check_solid(x + TILE_PITCH - 1 - margin, y + margin * 2) ||

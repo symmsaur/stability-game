@@ -16,7 +16,11 @@
 #define SOLIDGRUNT_RUN_LEFT_NUM 3
 
 #define MIN_SOLID_TILE 8 * 4
-#define MAX_SOLID_TILE 8 * 7 - 1
+#define MAX_SOLID_TILE 8 * 6 + 5
+
+// May need adjustment
+#define MIN_LADDER_TILE 8 * 6 + 4
+#define MAX_LADDER_TILE 8 * 6 + 7
 
 #define LIGHT_STONE 32
 #define DARK_STONE 40

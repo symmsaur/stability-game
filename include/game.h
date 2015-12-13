@@ -1,7 +1,4 @@
 #pragma once
-//#include "fireguy.h"
-
-// game logic headers
 
 #define GRAVITATIONAL_ACCELERATION 6
 
@@ -31,7 +28,6 @@ void tick();
 
 int global_frame_number;
 
-
 typedef enum {
-	left, right, up, down, flying, picked_up, dead
+	left, right, up, down, flying, picked_up, dead, climbing_up, falling
 } move_state;

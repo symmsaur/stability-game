@@ -33,4 +33,3 @@ void set_sprite(int sprite_number, int x, int y);
 void advance_sprite_frame(int sprite_number);
 void set_sprite_flip(int sprite_number, int flip);
 void clear_sprites();
-
