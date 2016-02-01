@@ -21,6 +21,8 @@
 #define THROW_SPEED_X 48
 #define THROW_SPEED_Y 24
 
+#define N_LEVELS 5
+
 void player_tick();
 
 struct player_state {
@@ -37,7 +39,11 @@ struct player_state {
 
 static struct player_state player;
 
-void init_game() {
+static int cur_lvl;
+
+int get_current_level() { return cur_lvl; }
+
+void init_game(int lvl) {
 	init_fireguy();
 	init_solidgrunt();
 	global_frame_number = 0;
@@ -50,8 +56,24 @@ void init_game() {
 	player.jmp_frames = 0;
 	player.state = 0;
 	player.jump_reset = 1;
-	load_level("../assets/level1.lvl", false);
+
+	load_level(get_level_path(lvl), false);
+	cur_lvl = lvl;
 }
+
+void tick() {
+	// N_LEVELS + 1 is a special win screen
+	if (n_live_solidgrunts() == 0 && cur_lvl <= N_LEVELS) {
+		init_game(cur_lvl + 1);
+		return;
+	}
+	tick_fireguys();
+	tick_solidgrunts();
+	if (cur_lvl <= N_LEVELS) player_tick();
+	resolve_collisions();
+	global_frame_number++;
+}
+
 
 void set_player_pos(int x, int y) {
 	player.actor_state.x = x;
@@ -91,14 +113,6 @@ void player_jump() {
 void player_end_jump() {
 	player.jmp_frames = 0;
 	if (player.state & ON_GROUND) player.jump_reset = 1;
-}
-
-void tick() {
-	tick_fireguys();
-	tick_solidgrunts();
-	player_tick();
-	resolve_collisions();
-	global_frame_number++;
 }
 
 void player_enable_pickup(int enable) {

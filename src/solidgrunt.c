@@ -33,6 +33,14 @@ solidgrunt* get_solidgrunt(int i) {
 	else return &solidgrunts[i];
 }
 
+int n_live_solidgrunts() {
+	int accum = 0;
+	for (int i = 0; i < n_solidgrunts; i++) {
+		accum += solidgrunts[i].move_state != dead;
+	}
+	return accum;
+}
+
 void tick_solidgrunts() {
 	for (int i = 0; i < n_solidgrunts; i++) {
 		tick_solidgrunt(&solidgrunts[i]);

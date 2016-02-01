@@ -15,6 +15,7 @@ typedef struct actor_state {
   int vel_y;
 } actor_state;
 
+int get_current_level();
 void init_game();
 void set_player_pos(int x, int y);
 void player_move(int dir);

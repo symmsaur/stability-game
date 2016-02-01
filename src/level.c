@@ -1,6 +1,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "main.h"
 #include "tiles.h"
 #include "game.h"
@@ -47,4 +49,17 @@ void save_level(const char* filename){
   }
   fclose(lvl_file);
 }
+
+static char* _level_path = NULL;
+// dammit
+char* get_level_path(int level_num) {
+	if (_level_path == NULL) {
+		_level_path = malloc(sizeof(char) * 256);
+		const char* orig_path = "../assets/level1.lvl";
+		strncpy(_level_path, orig_path, 256);
+	}
+	_level_path[15] = "0123456789"[level_num];
+	return _level_path;
+}
+
 

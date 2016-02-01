@@ -20,7 +20,7 @@ int main(int argc, const char *argv[]) {
 		SDL_Quit();
 	}
 
-	init_game();
+	init_game(1);
 
 	key_state = SDL_GetKeyboardState(NULL);
 
@@ -55,12 +55,36 @@ int main(int argc, const char *argv[]) {
 			player_enable_pickup(0);
 		}
 
-
 		if (key_state[SDL_SCANCODE_E] && key_state[SDL_SCANCODE_LSHIFT]) {
 			clear_sprites();
-			init_editor();
+			init_editor(get_current_level());
 			editor_loop();
-			init_game();
+			init_game(get_current_level());
+		}
+
+		// Level warps
+		// Start screen
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_0]) {
+			init_game(0);
+		}
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_1]) {
+			init_game(1);
+		}
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_2]) {
+			init_game(2);
+		}
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_3]) {
+			init_game(3);
+		}
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_4]) {
+			init_game(4);
+		}
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_5]) {
+			init_game(5);
+		}
+		// Win screen
+		if (key_state[SDL_SCANCODE_LCTRL] && key_state[SDL_SCANCODE_6]) {
+			init_game(6);
 		}
 
 		tick();

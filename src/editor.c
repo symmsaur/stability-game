@@ -10,9 +10,9 @@ static int current_tile = 0;
 void set_tile();
 void update_current_tile(char i);
 
-void init_editor(){
+void init_editor(int lvl_num){
   printf("Initing editor\n");
-  load_level("../assets/level1.lvl", true);
+  load_level(get_level_path(lvl_num), true);
   printf("Level loaded\n");
 }
 
@@ -49,7 +49,7 @@ void editor_loop(){
     if (key_state[SDL_SCANCODE_H]) update_current_tile('h');
 
 	if (key_state[SDL_SCANCODE_S]) {
-		save_level("../assets/level1.lvl");
+		save_level(get_level_path(get_current_level()));
 		printf("level saved.");
 	}
 
