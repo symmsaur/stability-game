@@ -12,7 +12,7 @@ void update_current_tile(char i);
 
 void init_editor(int lvl_num){
   printf("Initing editor\n");
-  load_level(get_level_path(lvl_num), true);
+  load_level(get_level_path(lvl_num), 1);
   printf("Level loaded\n");
 }
 

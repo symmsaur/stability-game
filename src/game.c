@@ -57,7 +57,7 @@ void init_game(int lvl) {
 	player.state = 0;
 	player.jump_reset = 1;
 
-	load_level(get_level_path(lvl), false);
+	load_level(get_level_path(lvl), 0);
 	cur_lvl = lvl;
 }
 
